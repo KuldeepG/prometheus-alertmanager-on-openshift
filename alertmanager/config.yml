@@ -1,0 +1,4 @@
+global:
+  [ resolve_timeout: 1m ]
+  [ smtp_from: no-reply@gmail.com ]
+  [ smtp_smarthost: smtp-service:3025 ]

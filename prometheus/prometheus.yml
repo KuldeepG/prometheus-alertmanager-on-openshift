@@ -1,0 +1,33 @@
+# my global config
+global:
+  scrape_interval:     15s
+  evaluation_interval: 30s
+  # scrape_timeout is set to the global default (10s).
+
+scrape_configs:
+- job_name: pods
+  honor_labels: true
+  kubernetes_sd_configs:
+  - role: pod
+    namespaces:
+      names:
+        - personal
+
+- job_name: service
+  honor_labels: true
+  kubernetes_sd_configs:
+  - role: service
+    namespaces:
+      names:
+        - personal
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "alertmanager-0.alertmanager.personal.svc.cluster.local:9093"
+      - "alertmanager-1.alertmanager.personal.svc.cluster.local:9093"
+
+rule_files:
+  - "/var/app/*.rules"

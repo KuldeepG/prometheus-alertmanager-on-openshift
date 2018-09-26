@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  group_by: ['alertname','instance','severity']
+  group_wait: 31s
+  repeat_interval: 5m
+  receiver: 'email'
+receivers:
+- name: 'email'
+  email_configs:
+  - from: 'no-reply@gmail.com'
+    to: 'group@no-reply.com'
+    smarthost: 'smtp-service:1025'
+    require_tls: false
